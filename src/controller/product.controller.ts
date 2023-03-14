@@ -7,8 +7,17 @@ const insert = async (req:Request<object, object, IProductInsert>, res:Response)
   try {
     const { body } = req;
     const createdProduct = await productsService.insert(body);
-    console.log('CONTROLLER =>> ', createdProduct);
     return res.status(201).json(createdProduct);
+  } catch (error) {
+    const alert = error as Error;
+    throw new HttpException(500, alert.message);
+  }
+};
+
+const getAll = async (_req:Request, res:Response) => {
+  try {
+    const allProducts = await productsService.getAll();
+    return res.status(200).json(allProducts);
   } catch (error) {
     const alert = error as Error;
     throw new HttpException(500, alert.message);
@@ -17,6 +26,7 @@ const insert = async (req:Request<object, object, IProductInsert>, res:Response)
 
 const productsController = {
   insert,
+  getAll,
 };
 
 export default productsController;
