@@ -1,9 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { IUserCreate } from '../interfaces/user.interface';
 
 const secret = process.env.JWT_SECRET || 'secret';
 
-const createToken = (data:IUserCreate):string => jwt.sign(
+const createToken = (data:string):string => jwt.sign(
   { data },
   secret,
   { algorithm: 'HS256', expiresIn: '10min' },
